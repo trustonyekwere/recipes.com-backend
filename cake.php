@@ -43,11 +43,23 @@
             transition: ease-in .2s;
         }
 
+        .red-text {
+            color: #b71c1c !important;
+        }
+
+        .red {
+            background-color: #b71c1c !important;
+        }
+
         p {
             font-size: 16pt !important;
         }
         .text-justify {
             text-align: justify !important;
+        }
+
+        .material-icons {
+            font-size: 200% !important;
         }
 
         .underline {
@@ -149,7 +161,14 @@
                                 </div>
 
                                 <div class="card-action">
-                                    <a href="./view_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>" class="red white-text btn btn-flat">more details</a>
+                                    <div class="row">
+                                        <div class="col l10">
+                                            <a href="./view_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>" class="red white-text btn btn-flat">more details</a>
+                                        </div>
+                                        <div class="col l2">
+                                            <a href="./delete_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>"><i class="material-icons red-text tooltipped" data-position="bottom" data-tooltip="Delete" >delete</i></a>
+                                        </div>
+                                    </div>
                                 </div>
         
                             </div>
@@ -186,7 +205,14 @@
                                 </div>
 
                                 <div class="card-action">
-                                    <button>more details</button>
+                                    <div class="row">
+                                        <div class="col l10">
+                                            <a href="./view_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>" class="red white-text btn btn-flat">more details</a>
+                                        </div>
+                                        <div class="col l2">
+                                            <a href=""><i class="material-icons red-text tooltipped" data-position="bottom" data-tooltip="delete" >Delete</i></a>
+                                        </div>
+                                    </div>
                                 </div>
         
                             </div>
@@ -262,6 +288,10 @@
                 indicators: false
             });
             $('.scrollspy').scrollSpy();
+
+            $(document).ready(function(){
+            $('.tooltipped').tooltip();
+            });
         });
     </script>
 </body>
