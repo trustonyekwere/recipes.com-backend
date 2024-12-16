@@ -1,7 +1,7 @@
 <?php
 
     $recipe_id = $_GET ["recipe_id"];
-    
+        
     include ("./connect.php");
 
     $fetch_query = "SELECT * FROM `recipes_tb` WHERE `recipe_id` = '$recipe_id' ";
@@ -10,7 +10,29 @@
 
     $recipe = mysqli_fetch_assoc($send_query);
 
+    // print_r($recipe);
+
+    //delete function
+
+    $delete_id = "";
+
+    if (isset($_POST['delete'])) {
+        $delete_id = $_POST['delete_id'];
+
+        // echo $delete_id;
+
+        $delete_query = "DELETE FROM `recipes_tb` WHERE `recipe_id` = '$delete_id'";
+
+        $send_delete_query = mysqli_query($connect, $delete_query);
+
+        if($delete_query){
+            header("Location: cake.php");
+        }
+
+    }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,11 +67,27 @@
             transition: ease-in .2s;
         }
 
+        .red-text {
+            color: #b71c1c !important;
+        }
+
+        .red {
+            background-color: #b71c1c !important;
+        }
+
+        .rounded-edges:hover{
+            font-weight: 600;
+        }
+
         p {
             font-size: 16pt !important;
         }
         .text-justify {
             text-align: justify !important;
+        }
+
+        .material-icons {
+            font-size: 200% !important;
         }
 
         .underline {
@@ -61,10 +99,8 @@
         }
     </style>
 </head>
-
 <body>
-
-    <header id="top">
+<header id="top">
         <!-- Nav Component 👀👇🏾 -->
         <div class="navbar-fixed">
             <nav class="white z-depth-0">
@@ -105,58 +141,33 @@
             <br>
             <li><a href="./login.php" target="_blank" class="btn red darken-4 z-depth-0">Login</a></li>
         </ul>
-
     </header>
-
-    <main><br>
-
-    <div class="container">
+    <main><br><br>
         <div class="container">
-
-                <h2>
-                    <?php echo $recipe['recipe_name'] ?>
-                    <div class="chip right red white-text">
-                        <?php echo $recipe ['recipe_type']; ?>
+            <div class="container">
+                <div class="card">
+                    <div class="row">
+                        <br><div class="col l7">
+                            <div class="card-image">
+                                <img width="100%" src="./assets/img/chocolate cake.jpg" alt="">
+                            </div><br>
+                        </div><br><br><br>
+                        <div class="col l5">
+                            <div class="card-content center-align">
+                                <p>Are you sure you want to delete <b><?php echo $recipe["recipe_name"]; ?>?</b></p>
+                            </div>
+                            <div class="card-action">                        
+                                <form action="delete_recipe.php" class="center-align" method="POST">
+                                    <input type="hidden" name="delete_id" value="<?php echo $recipe["recipe_id"]; ?>">
+                                    <input type="submit" value="delete" class="btn rounded-edges red" name="delete">
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </h2> 
-                
-
-            <ul class="collection">   
-
-                <li class="collection-item avatar">
-                    <i class="material-icons circle red">message</i>
-                    <br><p> <?php echo $recipe['description'] ?>
-                    </p>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle red">format_list_numbered</i>
-                    <br><p> <?php echo $recipe['ingredients'] ?>
-                    </p>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle red">access_time</i>
-                    <br><p> <?php echo $recipe['duration'] ?> minutes
-                    </p>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle red">date_range</i>
-                    <br><p> <?php echo $recipe['date_created'] ?>
-                    </p>
-                </li>
-
-            </ul>
-
-            <div class="container center-align section">
-                <section class="section">
-                    <a href="<?php echo $recipe ['recipe_type']; ?>.php" class="text-center btn btn-flat btn-large red white-text">BACK</a>
-                </section>
+                </div>
             </div>
-
         </div>
-    </div>
-
-    </main>
-
+        </main>
     <footer class="page-footer section scrollspy gradient-bg" id="footer">
         <section class="section">
             <div class="section container">
@@ -216,31 +227,10 @@
                 indicators: false
             });
             $('.scrollspy').scrollSpy();
-        });
-        $('.chips').chips();
-        $('.chips-initial').chips({
-            data: [{
-            tag: 'Apple',
-            }, {
-            tag: 'Microsoft',
-            }, {
-            tag: 'Google',
-            }],
-        });
-        $('.chips-placeholder').chips({
-            placeholder: 'Enter a tag',
-            secondaryPlaceholder: '+Tag',
-        });
-        $('.chips-autocomplete').chips({
-            autocompleteOptions: {
-            data: {
-                'Apple': null,
-                'Microsoft': null,
-                'Google': null
-            },
-            limit: Infinity,
-            minLength: 1
-            }
+
+            $(document).ready(function(){
+            $('.tooltipped').tooltip();
+            });
         });
     </script>
 </body>
