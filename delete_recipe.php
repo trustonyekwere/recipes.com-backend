@@ -167,7 +167,7 @@
                 </div>
             </div>
         </div>
-        </main>
+    </main>
     <footer class="page-footer section scrollspy gradient-bg" id="footer">
         <section class="section">
             <div class="section container">
