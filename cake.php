@@ -288,10 +288,7 @@
                 indicators: false
             });
             $('.scrollspy').scrollSpy();
-
-            $(document).ready(function(){
             $('.tooltipped').tooltip();
-            });
         });
     </script>
 </body>
