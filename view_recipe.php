@@ -59,6 +59,20 @@
         .gradient-bg {
         background: linear-gradient(to bottom, #ffffff, #b71c1c);
         }
+
+        .medium {
+            font-size: 34px !important;
+            color: #b71c1c;
+        }
+
+        .red {
+            background-color: #b71c1c !important;
+        }
+
+        .red-text {
+            color: #b71c1c !important;
+        }
+
     </style>
 </head>
 
@@ -114,7 +128,10 @@
         <div class="container">
 
                 <h2>
-                    <?php echo $recipe['recipe_name'] ?>
+                    <span class="red-text">
+                        <?php echo $recipe['recipe_name'] ?>
+                        <a href="./update_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>" class="tooltipped" data-position="right" data-tooltip="Edit" ><i class="material-icons medium">create</i></a>
+                    </span>
                     <div class="chip right red white-text">
                         <?php echo $recipe ['recipe_type']; ?>
                     </div>
@@ -215,32 +232,33 @@
                 interval: 5000,
                 indicators: false
             });
+            $('.tooltipped').tooltip();
             $('.scrollspy').scrollSpy();
-        });
-        $('.chips').chips();
-        $('.chips-initial').chips({
-            data: [{
+            $('.chips').chips();
+            $('.chips-initial').chips({
+                data: [{
             tag: 'Apple',
             }, {
             tag: 'Microsoft',
             }, {
             tag: 'Google',
             }],
-        });
-        $('.chips-placeholder').chips({
-            placeholder: 'Enter a tag',
-            secondaryPlaceholder: '+Tag',
-        });
-        $('.chips-autocomplete').chips({
-            autocompleteOptions: {
-            data: {
-                'Apple': null,
-                'Microsoft': null,
-                'Google': null
-            },
-            limit: Infinity,
-            minLength: 1
-            }
+            });
+            $('.chips-placeholder').chips({
+                placeholder: 'Enter a tag',
+                secondaryPlaceholder: '+Tag',
+            });
+            $('.chips-autocomplete').chips({
+                autocompleteOptions: {
+                data: {
+                    'Apple': null,
+                    'Microsoft': null,
+                    'Google': null
+                },
+                limit: Infinity,
+                minLength: 1
+                }
+            });
         });
     </script>
 </body>
