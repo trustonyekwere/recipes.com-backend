@@ -1,14 +1,30 @@
+<?php
+
+    include ("./connect.php");
+
+    $fetch_query = "SELECT * FROM `recipes_tb` WHERE `recipe_type` = 'chicken' ";
+
+    $send_query = mysqli_query($connect, $fetch_query);
+
+    $recipes = mysqli_fetch_all($send_query, MYSQLI_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Materialize css-->
-    <link rel="stylesheet" href="/assets/css/materialize.css">
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="/assets/img/rcon.png" type="image/x-icon">
-    <!-- Materialize Icons-->
+    <title>Chicken - Recipe.com</title>
+    <!-- Fav Icon 👀👇🏾 -->
+    <link rel="shortcut icon" href="assets/img/rcon.png" type="image/x-icon">
+    <!-- MaterializeCSS 👀👇🏾 -->
+    <link rel="stylesheet" href="assets/css/materialize.css">
+    <!-- Material Icons 👀👇🏾 -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Josephin Sans Font 👀👇🏾-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Josefin+Slab:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <title>Chicken-Recipe.com</title>
 
@@ -35,6 +51,15 @@
         p {
         font-size: 14pt !important;
         }
+
+        .green {
+            background-color: #2E7D32 !important;
+        }
+
+        .green-text {
+            color: #2E7D32 !important;
+        }
+
     </style>
 </head>
 <body>
@@ -79,137 +104,120 @@
             <br>
             <li><a href="./login.php" target="_blank" class="btn green darken-4 z-depth-0">Login</a></li>
         </ul>
-
-        <!-- main Image-->
-        <div class="slider hide-on-med-and-down">
-            <ul class="slides">
-                <li>
-                    <img src="/assets/img/chicken-main.jpg"> <!-- random image -->
-                </li>
-            </ul>
+        <!-- Background image & Welcome Text (Desktops) 👀👇🏾 -->
+        <div class="hide-on-med-and-down">
+            <div class="slider">
+                <ul class="slides">
+                    <li>
+                        <img src="./assets/img/chicken-main.jpg">
+                    </li>
+                </ul>
+            </div>
         </div>
-        <img src="/assets/img/chicken-main.jpg" alt="" class="responsive-img hide-on-large-only">
+
+        <!-- Background Image & Welcome Text (Tabs & Mobile) 👀👇🏾 -->
+        <div class="hide-on-large-only left-align white-text valign-wrapper" style="height: 40vh; background-image: url(assets/img/chicken-main.jpg); background-size: cover;"></div>
     </header>
     <main>
         <section class="section">
             <div class="container">
                 <h4 class="green-text darken-4-text py-1">Chicken</h4>
-                <p>What's for dinner? We hope it's chicken! Chicken in all its many forms—from breasts to thighs, or grilled to fried—has long been considered the dinner winner winner, and rightfully so. Unfortunately, that can mean falling into a dinner rut much too easily for our liking. If you’re like us and just can’t bear to make your (or your family’s) old standbys for the umpteenth time, we’ve got you. Get inspired with our list of our 93 best chicken dinner recipes—you’ll be sure to find a new weeknight favorite.</p>
+                <p>What's for dinner? We hope it's chicken! Chicken in all its many forms—from breasts to thighs, or grilled to fried—has long been considegreen the dinner winner winner, and rightfully so. Unfortunately, that can mean falling into a dinner rut much too easily for our liking. If you’re like us and just can’t bear to make your (or your family’s) old standbys for the umpteenth time, we’ve got you. Get inspigreen with our list of our 93 best chicken dinner recipes—you’ll be sure to find a new weeknight favorite.</p>
                 <p class="">Chicken is a popular, versatile type of poultry that’s enjoyed worldwide in various forms, from roasted and grilled to fried and stewed. It's known for its mild flavor, which makes it adaptable to many cuisines and seasonings. Chicken is rich in protein, essential vitamins (like B6 and niacin), and minerals (such as phosphorus and selenium), making it a nutritious choice. It can be cooked with spices, herbs, or marinades, allowing for endless recipe possibilities. Common dishes include chicken curry, grilled chicken, chicken soup, and chicken salad, each offering a different taste and texture experience.</p>
                 <p class="green-text text-darken-4">Here's a few popular chicken recipes from around the world.</p>
             </div>
         </section>
         <section class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5">
-                            <div class="card-image">
-                                <img src="/assets/img/Chicken 1.jpg">
+            <!-- Category Section 👀👇🏾 -->
+            <section class="section">
+                <div class="section container">
+                    <!-- On Desktops 👀👇🏾 -->               
+                    <div class="row hide-on-med-and-down">
+                        <?php foreach ($recipes as $recipe) { ?>
+            
+                            <div class="col s12 m12 l4">
+                                
+                                <div class="card z-depth-0" style="background-color: #f5f5f5;">
+
+                                    <div class="card-image">
+                                        <img src="./assets/img/cake-main.jpg" alt="">
+                                    </div>
+            
+                                    <div class="card-content">
+            
+                                    <h5 class="green-text" style="font-size: 16px !important;"><?php echo $recipe["recipe_name"] ?></h5>
+                                    <p style="font-size: 16px !important;"><?php echo $recipe["description"] ?></p>
+            
+                                    </div>
+
+                                    <div class="card-action">
+                                        <div class="row">
+                                            <div class="col l10">
+                                                <a href="./view_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>" class="green white-text btn btn-flat">more details</a>
+                                            </div>
+                                            <div class="col l2">
+                                                <a href="./delete_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>"><i class="material-icons green-text tooltipped" data-position="bottom" data-tooltip="Delete" >delete</i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                </div>
+
+                                
                             </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Chicken Noodle</span>
-                                <p>Chicken noodle soup is a comforting blend of tender chicken, noodles, and savory broth, perfect for warming the soul.</p>
-                            </div>
-                        </div>
+            
+                        <?php } ?>
                     </div>
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5">
-                            <div class="card-image">
-                                <img src="/assets/img/Chicken 2.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Chicken Curry</span>
-                                <p>A rich, aromatic chicken curry with tender meat, spices, and creamy coconut milk, served over rice.</p>
-                            </div>
-                        </div>
+                </div><br>
+
+                    <div style="text-align: center;">
+                        <a href="https://en.wikipedia.org/wiki/List_of_cakes" target="_blank" style="font-size: 12px; background-color: #2E7D32;" class="btn btn-large hide-on-med-and-down z-depth-0">VIEW ALL CHICKEN</a>
                     </div>
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5">
-                            <div class="card-image">
-                                <img src="/assets/img/Chicken 3.jpg">
+                    <!-- On Mobiles 👀👇🏾 -->
+
+                <div class="hide-on-large-only">
+                    <div class="row">
+                        <?php foreach ($recipes as $recipe) { ?>
+            
+                            <div class="col s12 m12 l4">
+                                
+                                <div class="card z-depth-0" style="background-color: #f5f5f5;">
+
+                                    <div class="card-image">
+                                        <img src="./assets/img/cake-main.jpg" alt="">
+                                    </div>
+            
+                                    <div class="card-content">
+            
+                                    <h5 class="green-text text-darken-4" style="font-size: 16px !important;"><?php echo $recipe["recipe_name"] ?></h5>
+                                    <p style="font-size: 16px !important;"><?php echo $recipe["description"] ?></p>
+            
+                                    </div>
+
+                                    <div class="card-action">
+                                        <div class="row">
+                                            <div class="col l10">
+                                                <a href="./view_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>" class="green white-text btn btn-flat">more details</a>
+                                            </div>
+                                            <div class="col l2">
+                                                <a href=""><i class="material-icons green-text tooltipped" data-position="bottom" data-tooltip="delete" >Delete</i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                </div>
+                                
                             </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Mustard Chicken </span>
-                                <p>Tender chicken stuffed with tangy mustard and herbs, baked to perfection for a flavorful, zesty bite.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5 grey">
-                            <div class="card-image">
-                                <img src="/assets/img/chicken 4.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Chicken Chasseur</span>
-                                <p>Chicken Chasseur is a French dish with tender chicken in a savory tomato, mushroom, and white wine sauce.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5">
-                            <div class="card-image">
-                                <img src="/assets/img/Chicken 5.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Chicken Pasta</span>
-                                <p>A delicious chicken pasta with tender pieces of chicken, pasta, and a creamy, savory sauce.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5">
-                            <div class="card-image">
-                                <img src="/assets/img/chicken 6.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Chicken Casserole</span>
-                                <p>A chicken casserole is a comforting, one-dish meal of tender chicken, vegetables, baked to golden, bubbly perfection.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5">
-                            <div class="card-image">
-                                <img src="/assets/img/Chicken 7.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Butter Chicken</span>
-                                <p>Butter chicken is a creamy, spiced Indian dish with tender chicken in a rich tomato-butter sauce, perfect with naan or rice.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5">
-                            <div class="card-image">
-                                <img src="/assets/img/Chicken 8.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Chicken Karaage</span>
-                                <p>Karaage is Japanese fried chicken, marinated in soy, ginger, and garlic, with a crispy, golden exterior and juicy inside.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col l4 m12 s12">
-                        <div class="card z-depth-0 grey lighten-5">
-                            <div class="card-image">
-                                <img src="/assets/img/Chicken 9.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title green-text text-darken-3">Chicken 65</span>
-                                <p>Chicken 65 is a spicy, tangy South Indian fried chicken known for its bold flavors and vibrant red color.</p>
-                            </div>
-                        </div>
+            
+                        <?php } ?>
                     </div>
                 </div>
-                <div class="center-align">
-                    <a href="https://en.wikipedia.org/wiki/List_of_chicken_dishes" class="btn-large btn-flat white-text green darken-3">view all chicken</a>
+
+
+                <div style="text-align: center;">
+                    <a href="https://en.wikipedia.org/wiki/List_of_cakes" style="font-size: 12px; background-color: #2E7D32;" class="btn hide-on-large-only z-depth-0">VIEW ALL CHICKEN</a>
                 </div>
-            </div>
+            </section>
         </section>
     </main>
     <footer class="page-footer section scrollspy gradient-bg" id="footer">
@@ -258,18 +266,25 @@
         </section>
     </footer>
 
-    <!-- JavaScript Section-->
-    <script src="/assets/js/jqueryv3.4.1.js"></script>
-    <script src="/assets/js/materialize.js"></script>
+    <!-- Scripts Below 👀👇🏾 -->
+    <script src="assets/js/jqueryv3.4.1.js"></script>
+    <script src="assets/js/materialize.js"></script>
     <script>
-                $(document).ready(function(){
+        $(document).ready(function(){
             $('.sidenav').sidenav();
+            $('.materialboxed').materialbox();
             $('.slider').slider({
-                indicators: false,
-                height: 720
+                height: 500,
+                interval: 5000,
+                indicators: false
             });
             $('.scrollspy').scrollSpy();
+
+            $(document).ready(function(){
+            $('.tooltipped').tooltip();
+            });
         });
     </script>
 </body>
 </html>
+
