@@ -19,14 +19,12 @@
     if (isset($_POST['delete'])) {
         $delete_id = $_POST['delete_id'];
 
-        // echo $delete_id;
-
         $delete_query = "DELETE FROM `recipes_tb` WHERE `recipe_id` = '$delete_id'";
 
         $send_delete_query = mysqli_query($connect, $delete_query);
 
         if($delete_query){
-            header("Location: cake.php");
+            header("Location: home.html");
         }
 
     }
