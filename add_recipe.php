@@ -37,7 +37,7 @@ if (isset ($_POST["submit"])) {
     // Check if data was submitted successfully
 
     if ($send_query) {
-        header("Location: cake.php");
+        header("Location: home.html");
     }  else {
         echo "Connection Error";
     }
