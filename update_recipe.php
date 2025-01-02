@@ -1,6 +1,33 @@
 <?php
 
+    $recipe_id = $_GET ["recipe_id"];
+        
+    include ("./connect.php");
 
+    $fetch_query = "SELECT * FROM `recipes_tb` WHERE `recipe_id` = '$recipe_id' ";
+
+    $send_query = mysqli_query($connect, $fetch_query);
+
+    $recipe = mysqli_fetch_assoc($send_query);
+
+    $update_id = "";
+    $update_recipe_name = "";
+
+    if (isset($_POST['update'])) {
+        $update_id = $_POST['update_recipe_id'];
+        $update_recipe_name = $_POST ['update_recipe_name'];
+        $update_ingredients = $_POST ['update_ingredients'];
+        $update_description = $_POST ['update_description'];
+        $update_query = " UPDATE `recipes_tb` SET `recipe_name`='$update_recipe_name' WHERE `recipe_id` = '$update_id' ";
+        $send_update_query = mysqli_query($connect, $update_query);
+
+        if($update_query) {
+            header("Location: view_recipe.php?recipe_id=$update_id");
+        }
+
+    }
+
+    // print_r($recipe);
 
 ?>
 
@@ -107,23 +134,34 @@
             <br>
             <li><a href="./login.php" target="_blank" class="btn red darken-4 z-depth-0">Login</a></li>
         </ul>
-        <!-- Background image & Welcome Text (Desktops) 👀👇🏾 -->
-        <div class="hide-on-med-and-down">
-            <div class="slider">
-                <ul class="slides">
-                    <li>
-                        <img src="assets/img/cake-main.jpg">
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- Background Image & Welcome Text (Tabs & Mobile) 👀👇🏾 -->
-        <div class="hide-on-large-only left-align white-text valign-wrapper" style="height: 40vh; background-image: url(assets/img/cake-main.jpg); background-size: cover;"></div>
     </header>
     <main>
 
 
-
+<section class="section container">
+    <div class="container">
+        <div class="container center-align">
+            <h3>UPDATE RECIPE</h3>
+            <form action="./update_recipe.php" method="POST">
+                <input type="hidden" name="update_recipe_id" value="<?php echo $recipe['recipe_id']; ?>">
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <input type="text" name="update_recipe_name" id="update_recipe_name" placeholder="<?php echo $recipe['recipe_name']; ?>">
+                    </div>
+                    <div class="col s12 input-field">
+                        <input type="text" name="update_ingredients" id="update_ingredients" placeholder="<?php echo $recipe['ingredients']; ?>">
+                    </div>
+                    <div class="col s12 input-field">
+                        <textarea name="update_description" rows="10000" id="update_description" placeholder="<?php echo $recipe['description']; ?>"></textarea>
+                    </div>
+                    <div class="col s12 input-field">
+                        <input type="submit" value="update" name="update" class="btn btn-flat btn-large red text-darken-4 white-text">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
 
 
     </main>
