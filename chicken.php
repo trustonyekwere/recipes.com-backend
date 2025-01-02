@@ -11,7 +11,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -140,7 +140,7 @@
                                 <div class="card z-depth-0" style="background-color: #f5f5f5;">
 
                                     <div class="card-image">
-                                        <img src="./assets/img/cake-main.jpg" alt="">
+                                        <img src="./assets/img/chicken-main.jpg" alt="">
                                     </div>
             
                                     <div class="card-content">
